@@ -1,7 +1,7 @@
 ---
-title: 公有云寡头的时代
+title: Public Cloud
 key: 20180822
-tags: 云计算
+tags: cloud
 ---
 
 1.	公有云市场现状
