@@ -176,7 +176,7 @@ tags: cloud
 	  https://kubernetes.io/docs/concepts/cluster-administration/addons/
 	You can now join any number of machines by running the following on each node
 	as root:
-	  kubeadm join 10.0.100.202:6443 --token thczis.64adx0imeuhu23xv --discovery-token-ca-cert-hash sha256:fa7b11bb569493fd44554aab0afe55a4c051cccc492dbdfafae6efeb6ffa80e6
+	  kubeadm join 192.168.0.111:6443 --token hcymqj.6mdpqlgu7ghi4wiv --discovery-token-ca-cert-hash sha256:d23cd67bd64076077a6a301ee6b7a67244479e5766f41f0de3b60a1df59f111a
  
 
 提示：选项–kubernetes-version=v1.10.0是必须的，否则会因为访问google网站被墙而无法执行命令。这里使用v1.10.0版本，刚才前面也说到了下载的容器镜像版本必须与K8S版本一致否则会出现time out。
@@ -233,7 +233,7 @@ tags: cloud
 	    [WARNING FileExisting-crictl]: crictl not found in system path
 	Suggestion: go get github.com/kubernetes-incubator/cri-tools/cmd/crictl
 	[discovery] Trying to connect to API Server "192.168.0.111:6443"
-	[discovery] Created cluster-info discovery client, requesting info from "https://10.0.100.202:6443"
+	[discovery] Created cluster-info discovery client, requesting info from "https://192.168.0.111:6443"
 	[discovery] Requesting info from "https://192.168.0.111:6443" again to validate TLS against the pinned public key
 	[discovery] Cluster info signature and contents are valid and TLS certificate validates against pinned roots, will use API Server "192.168.0.111:6443"
 	[discovery] Successfully established connection with API Server "192.168.0.111:6443"
