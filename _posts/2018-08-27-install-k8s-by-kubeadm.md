@@ -16,9 +16,13 @@ tags: cloud
 
 准备环境：
 
-1.配置好各节点hosts文件
+1.配置好各节点/etc/hosts文件
 
-	vim /etc/hosts
+	192.168.0.111 master
+	192.168.0.112 node1
+	192.168.0.113 node2
+	192.168.0.114 docker
+
 
 2.关闭系统防火墙
 
@@ -30,6 +34,7 @@ tags: cloud
 
 	vim /etc/selinux/config
 	SELINUX=disabled
+
 重启服务器，通过命令查看修改是否成功
 
 	[devops@master ~]$ getenforce
@@ -296,9 +301,7 @@ tags: cloud
 	mkdir -p /etc/systemd/system/docker.service.d
 	touch /etc/systemd/system/docker.service.d/http-proxy.conf
 
-编辑http-proxy.conf文件
-
-    vim /etc/systemd/system/docker.service.d/http-proxy.conf 
+编辑http-proxy.conf文件, 添加
 	[Service]
 	Environment="HTTPS_PROXY=socks5://127.0.0.1:1080/" "NO_PROXY=localhost,127.0.0.1,docker.io,j20ri28s.mirror.aliyuncs.com,*.aliyuncs.com,*.mirror.aliyuncs.com,registry.docker-cn.com,hub.c.163.com,hub-auth.c.163.com,"
 
