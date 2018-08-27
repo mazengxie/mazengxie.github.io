@@ -19,6 +19,7 @@ tags: cloud
 1.配置好各节点hosts文件
 
 	vim /etc/hosts
+
 2.关闭系统防火墙
 
 	iptables -F
@@ -68,6 +69,7 @@ tags: cloud
 
 	systemctl enable docker && systemctl start docker
 	systemctl enable kubelet && systemctl start kubelet
+
 提示：此时kubelet的服务运行状态是异常的，因为缺少主配置文件kubelet.conf。但可以暂不处理，因为在完成Master节点的初始化后才会生成这个配置文件。
 
 ## 3. 利用kubeadm安装k8s
@@ -106,6 +108,7 @@ tags: cloud
 	  docker tag keveon/$imageName k8s.gcr.io/$imageName
 	  docker rmi keveon/$imageName
 	done
+
 上面的shell脚本主要做了3件事，下载各种需要用到的容器镜像、重新打标记为符合k8s命令规范的版本名称、清除旧的容器镜像。
 
 提示：镜像版本一定要和kubeadm安装的版本一致，否则会出现time out问题。 
@@ -209,7 +212,7 @@ tags: cloud
 	FLANNEL_MTU=1450
 	FLANNEL_IPMASQ=true
 	EOF
-	kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
+	kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
 
 ## 3.6 让node1、node2加入集群
 查看token
