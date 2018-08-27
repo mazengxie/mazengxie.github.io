@@ -7,22 +7,14 @@ tags: cloud
 ## 1. 基础环境
 
 采用CentOS7.4 minimual，docker 1.13，kubeadm 1.10.0，etcd 3.0， k8s 1.10.0
-我们这里选用三个节点搭建一个实验环境。
+我们这里选用三个节点搭建一个k8s集群，其中一个master，两个node。
 <!--more-->
-	192.168.0.111 master
-	192.168.0.112 node1
-	192.168.0.113 node2
-	192.168.0.113 docker registry
-
-准备环境：
 
 1.配置好各节点/etc/hosts文件
 
 	192.168.0.111 master
 	192.168.0.112 node1
 	192.168.0.113 node2
-	192.168.0.114 docker
-
 
 2.关闭系统防火墙
 
@@ -75,7 +67,7 @@ tags: cloud
 	systemctl enable docker && systemctl start docker
 	systemctl enable kubelet && systemctl start kubelet
 
-提示：此时kubelet的服务运行状态是异常的，因为缺少主配置文件kubelet.conf。但可以暂不处理，因为在完成Master节点的初始化后才会生成这个配置文件。
+> 提示：此时kubelet的服务运行状态是异常的，因为缺少主配置文件kubelet.conf。但可以暂不处理，因为在完成Master节点的初始化后才会生成这个配置文件。
 
 ## 3. 利用kubeadm安装k8s
 ### 3.1 配置镜像加速器
@@ -116,9 +108,9 @@ tags: cloud
 
 上面的shell脚本主要做了3件事，下载各种需要用到的容器镜像、重新打标记为符合k8s命令规范的版本名称、清除旧的容器镜像。
 
-提示：镜像版本一定要和kubeadm安装的版本一致，否则会出现time out问题。 
+> 提示：镜像版本一定要和kubeadm安装的版本一致，否则会出现time out问题。 
 
-## 3.3 初始化安装K8S Master
+### 3.3 初始化安装K8S Master
 
 执行上述shell脚本，等待下载完成后，执行kubeadm init
 
@@ -177,13 +169,12 @@ tags: cloud
 	You can now join any number of machines by running the following on each node
 	as root:
 	  kubeadm join 192.168.0.111:6443 --token hcymqj.6mdpqlgu7ghi4wiv --discovery-token-ca-cert-hash sha256:d23cd67bd64076077a6a301ee6b7a67244479e5766f41f0de3b60a1df59f111a
- 
-
-提示：选项–kubernetes-version=v1.10.0是必须的，否则会因为访问google网站被墙而无法执行命令。这里使用v1.10.0版本，刚才前面也说到了下载的容器镜像版本必须与K8S版本一致否则会出现time out。
 
 上面的命令大约需要1分钟的过程，期间可以观察下tail -f /var/log/message日志文件的输出，掌握该配置过程和进度。
+ 
+> 提示：选项–kubernetes-version=v1.10.0是必须的，否则会因为访问google网站被墙而无法执行命令。这里使用v1.10.0版本，刚才前面也说到了下载的容器镜像版本必须与K8S版本一致否则会出现time out。
 
-## 3.4 配置kubectl认证信息
+### 3.4 配置kubectl认证信息
 
 对于非root用户
 
@@ -197,7 +188,7 @@ tags: cloud
 	也可以直接放到~/.bash_profile
 	echo "export KUBECONFIG=/etc/kubernetes/admin.conf" >> ~/.bash_profile
 
-## 3.5 安装flannel网络
+### 3.5 安装flannel网络
 
 	mkdir -p /etc/cni/net.d/
 	cat <<EOF> /etc/cni/net.d/10-flannel.conf
@@ -219,7 +210,7 @@ tags: cloud
 	EOF
 	kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
 
-## 3.6 让node1、node2加入集群
+### 3.6 让node1、node2加入集群
 查看token
 
 	[devops@master ~]$  kubeadm token create --print-join-command
@@ -251,7 +242,7 @@ tags: cloud
 
     kubectl taint nodes --all node-role.kubernetes.io/master-
 
-## 3.7 验证K8S Master是否搭建成功
+### 3.7 验证K8S Master是否搭建成功
 查看节点状态
 
 	[devops@master ~]$ kubectl get nodes
