@@ -4,11 +4,11 @@ key: 20180827
 tags: cloud
 ---
 
-##1. 基础环境
+## 1. 基础环境
 
 采用CentOS7.4 minimual，docker 1.13，kubeadm 1.10.0，etcd 3.0， k8s 1.10.0
 我们这里选用三个节点搭建一个实验环境。
-
+<!--more-->
 	192.168.0.111 master
 	192.168.0.112 node1
 	192.168.0.113 node2
@@ -46,8 +46,8 @@ tags: cloud
 	net.bridge.bridge-nf-call-ip6tables = 1
 	sysctl -p
 
-##2. 安装kubeadm和相关工具包
-###2.1 首先配置阿里K8S YUM源
+## 2. 安装kubeadm和相关工具包
+### 2.1 首先配置阿里K8S YUM源
 
 	cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 	[kubernetes]
@@ -60,19 +60,19 @@ tags: cloud
 	yum clean all
 	yum makecache
 
-###2.2 安装kubeadm和相关工具包
+### 2.2 安装kubeadm和相关工具包
 	
 	yum -y install docker kubelet kubeadm kubectl kubernetes-cni
 
-###2.3 启动Docker与kubelet服务
+### 2.3 启动Docker与kubelet服务
 
 	systemctl enable docker && systemctl start docker
 	systemctl enable kubelet && systemctl start kubelet
 提示：此时kubelet的服务运行状态是异常的，因为缺少主配置文件kubelet.conf。但可以暂不处理，因为在完成Master节点的初始化后才会生成这个配置文件。
 
-##3. 利用kubeadm安装k8s
-###3.1 配置镜像加速器
-
+## 3. 利用kubeadm安装k8s
+### 3.1 配置镜像加速器
+ 
 因为无法直接访问gcr.io下载镜像，所以需要配置一个国内的容器镜像加速器，配置一个阿里云的加速器：
 
 登录[https://cr.console.aliyun.com/](https://cr.console.aliyun.com/)，在页面中找到并点击镜像加速按钮，即可看到属于自己的专属加速链接，选择Centos版本后即可看到配置方法。
@@ -93,7 +93,7 @@ tags: cloud
 	sudo systemctl daemon-reload
 	sudo systemctl restart docker
 
-###3.2 下载K8S相关镜像
+### 3.2 下载K8S相关镜像
 
 解决完加速器的问题之后，开始下载k8s相关镜像，下载后将镜像名改为k8s.gcr.io/开头的名字，以便kubeadm识别使用。
 
@@ -110,7 +110,7 @@ tags: cloud
 
 提示：镜像版本一定要和kubeadm安装的版本一致，否则会出现time out问题。 
 
-##3.3 初始化安装K8S Master
+## 3.3 初始化安装K8S Master
 
 执行上述shell脚本，等待下载完成后，执行kubeadm init
 
@@ -175,7 +175,7 @@ tags: cloud
 
 上面的命令大约需要1分钟的过程，期间可以观察下tail -f /var/log/message日志文件的输出，掌握该配置过程和进度。
 
-##3.4 配置kubectl认证信息
+## 3.4 配置kubectl认证信息
 
 对于非root用户
 
@@ -189,7 +189,7 @@ tags: cloud
 	也可以直接放到~/.bash_profile
 	echo "export KUBECONFIG=/etc/kubernetes/admin.conf" >> ~/.bash_profile
 
-##3.5 安装flannel网络
+## 3.5 安装flannel网络
 
 	mkdir -p /etc/cni/net.d/
 	cat <<EOF> /etc/cni/net.d/10-flannel.conf
@@ -211,7 +211,7 @@ tags: cloud
 	EOF
 	kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
 
-##3.6 让node1、node2加入集群
+## 3.6 让node1、node2加入集群
 查看token
 
 	[devops@master ~]$  kubeadm token create --print-join-command
@@ -243,7 +243,7 @@ tags: cloud
 
     kubectl taint nodes --all node-role.kubernetes.io/master-
 
-##3.7 验证K8S Master是否搭建成功
+## 3.7 验证K8S Master是否搭建成功
 查看节点状态
 
 	[devops@master ~]$ kubectl get nodes
@@ -280,7 +280,7 @@ tags: cloud
 	scheduler            Healthy   ok                   
 	etcd-0               Healthy   {"health": "true"}  
 
-##FAQ:
+## FAQ:
 1.kube init失败怎么办？ 查找原因，并使用如下命令进行回退
 
 	sudo kubeadm reset
