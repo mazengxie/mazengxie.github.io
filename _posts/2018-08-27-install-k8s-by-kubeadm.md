@@ -1,7 +1,7 @@
 ---
 title: 使用kubeadm安装Kubernetes v1.10
 key: 20180827
-tags: cloud
+tags: k8s
 ---
 
 ## 1. 基础环境
@@ -303,3 +303,9 @@ tags: cloud
 	Environment=GOTRACEBACK=crash DOCKER_HTTP_HOST_COMPAT=1 PATH=/usr/libexec/docker:/usr/bin:/usr/sbin HTTPS_PROXY=socks5://127.0.0.1:1080/ NO_PROXY=localhost,127.0.0.1,docker
 	
 	[root@docker devops]# systemctl restart docker
+
+3. 如果没有代理而且也不能访问谷歌，怎么办？
+ 
+可以采用二进制文件安装，获取链接[https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md "k8s release binary")
+
+也可以自己编译k8s images镜像，编译方法参考[https://mazengxie.github.io/2018/08/28/k8s-make.html](https://mazengxie.github.io/2018/08/28/k8s-make.html "kubernetes的编译与打包")
