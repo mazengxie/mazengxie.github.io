@@ -1,5 +1,5 @@
 ---
-title: 构建镜像与Kubernetes 部署应用
+title: 构建镜像与Kubernetes部署应用
 key: 20180830
 tags: docker
 ---
