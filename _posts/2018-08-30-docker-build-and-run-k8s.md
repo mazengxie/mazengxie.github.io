@@ -137,7 +137,7 @@ Dockerfile文件很简单，只需要8行就可以构建出生产级的java镜�
 
 ① 用 kubectl 命令直接创建，比如：
 
-	kubectl run nginx-deployment --image=192.168.0.114:5000/oeasy/yihao01-permission-management-6810:1.0.0 --replicas=2
+	kubectl run pm --image=192.168.0.114:5000/oeasy/yihao01-permission-management-6810:1.0.0 --replicas=2
 
 在命令行中通过参数指定资源的属性。
 
