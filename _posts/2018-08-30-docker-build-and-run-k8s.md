@@ -1,5 +1,5 @@
 ---
-title: 构建镜像并运行在kubernetes
+title: 构建镜像与Kubernetes 部署
 key: 20180830
 tags: docker
 ---
@@ -14,10 +14,9 @@ tags: docker
 	192.168.0.113 node2
 	192.168.0.114 docker仓库
 
-软件版本
-name | version
+software  | version
 ------------ | -------------
-linux | centos7.4 mini
+linux | centos7. 4 mini
 kubernetes | v1.10
 docker | 1.13
 go | v1.9
@@ -27,7 +26,7 @@ java | 1.8
 ### 2.1 创建Dockerfile
 我们以java程序的jar包为例，创建Dockerfile文件如下
 
-	FROM 192.168.0.114:5000/oeasy/openjdk:8-alpine
+	FROM openjdk:8-alpine
 	ENV TZ "Asia/Shanghai"
 	RUN export LANG="zh_CH.UTF-8"
 	ARG jar_path
@@ -36,20 +35,21 @@ java | 1.8
 	ENV JAVA_OPTS "-Dspring.profiles.active=k8s_test -server -Xms128m -Xmx256m -XX:MaxMetaspaceSize=128m"
 	ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /opt/*.jar"]
 
-Dockerfile文件很简单，只需要8行就可以构建出生产级的java镜像。我们逐行来看一下实现的功能
+Dockerfile文件很简单，只需要8行就可以构建出生产级的java镜像。我们逐行来看一下实现的功能：
 
 ①执行 FROM，把openjdk:8-alpine 作为 base 镜像，当然我们也可以在一个纯净的centos镜像上，自己安装java软件也是可以的。
 
 ②ENV TZ，ENV指令用以定义镜像的环境变量，docker默认是utc时间，我们这儿设置为上海时区。
 
-③RUN export LANG，RUN功能为运行指定的命令，例如RUN yum install vim，那么生成的镜像里面则会自动安装上vim编辑器。我们设置字符编码是utf-8的，以便可以显示中文
+③RUN export LANG，RUN功能为运行指定的命令，例如RUN yum install vim，那么生成的镜像里面则会自动安装上vim编辑器。我们设置字符编码是utf-8的，以便可以显示中文。
 
-④ARG jar_path，ARG定义构建镜像时需要的参数、用户可以在构建期间通过docker build --build-arg <varname>=<value>将其传递给构建器、如果指定了dockerfile中没有定义的参数，则发发出警告，提示构建参数未被使用。使用ARG可以增加dockerfile文件复用性
+④ARG jar_path，ARG定义构建镜像时需要的参数、用户可以在构建期间通过docker build --build-arg “varname”=“value”，将其传递给构建器、如果指定了dockerfile中没有定义的参数，则发出警告，提示构建参数未被使用。使用ARG可以增加dockerfile文件的复用性。
 
 ⑤ ADD $jar_path/*.jar /opt/， ADD指令的功能是将主机构建环境（上下文）目录中的文件和目录。我们的构建环境下的目录结构：
 
 	[root@docker iot_images]# ls
 	build.sh  dockerfile  eureka  yihao01-permission-management-6810
+
 通过docker build --build-arg命令，就可以指定把eureka，还是yihao01-permission-management-6810目录下的jar包复制到容器中。
 
 ⑥WORKDIR /opt/， WORKDIR为后续的ENTRYPOINT指令配置工作目录/opt。
@@ -137,7 +137,7 @@ Dockerfile文件很简单，只需要8行就可以构建出生产级的java镜�
 
 ① 用 kubectl 命令直接创建，比如：
 
-	kubectl run nginx-deployment --image=/yihao01-permission-management-6810:1.0.0 --replicas=2
+	kubectl run nginx-deployment --image=192.168.0.114:5000/oeasy/yihao01-permission-management-6810:1.0.0 --replicas=2
 
 在命令行中通过参数指定资源的属性。
 
@@ -183,8 +183,8 @@ Dockerfile文件很简单，只需要8行就可以构建出生产级的java镜�
 基于配置文件的方式 | 基于命令的方式 
 ------------ | -------------
 配置文件描述了 What，即应用最终要达到的状态 | 简单直观快捷，上手快
-配置文件提供了创建资源的模板，能够重复部署  | 
-可以像管理代码一样管理部署 | 
+配置文件提供了创建资源的模板，能够重复部署  |  --
+可以像管理代码一样管理部署 |  --
 适合正式的、跨环境的、规模化部署 | 适合临时测试或实验
 方式要求熟悉配置文件的语法，有一定难度 | 简单
 
@@ -205,6 +205,7 @@ Dockerfile文件很简单，只需要8行就可以构建出生产级的java镜�
 	NAME      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
 	pm-svc    ClusterIP   10.108.165.235   <none>        6810/TCP   21d
 
-当然你也可以单独查看deployment、pod的具体信息等
+当然你也可以单独查看deployment、pod的具体信息等。
+
 	[devops@master ~]$ kubectl -n iot get pods -o wide | grep pm
 	pm-75d9b84cbb-nmgqc           1/1       Running   4          21d       10.244.2.119   node2
