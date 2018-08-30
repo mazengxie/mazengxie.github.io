@@ -1,5 +1,5 @@
 ---
-title: 构建镜像与Kubernetes 部署
+title: 构建镜像与Kubernetes 部署应用
 key: 20180830
 tags: docker
 ---
@@ -61,7 +61,7 @@ Dockerfile文件很简单，只需要8行就可以构建出生产级的java镜�
 ### 2.2 构建镜像
 下面我们运行 docker build 命令构建镜像，并对照dockerfile文件查看每一步的细节。
 
-	[root@docker iot_images]# docker build --build-arg jar_path=yihao01-permission-management-6810  -t 192.168.0.114:5000/oeasy/yihao01-permission-management-6810:1.0.0 -f dockerfile .
+	[root@docker iot_images]# docker build --build-arg jar_path=yihao01-permission-management-6810 -t 192.168.0.114:5000/oeasy/yihao01-permission-management-6810:1.0.0 -f dockerfile .
 	Sending build context to Docker daemon 111.6 MB
 	Step 1/8 : FROM 192.168.0.114:5000/oeasy/openjdk:8-alpine
 	 ---> b91a9b712b0a
