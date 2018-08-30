@@ -135,13 +135,13 @@ Dockerfile文件很简单，只需要8行就可以构建出生产级的java镜�
 
 我们首先介绍最常用的 Deployment。Kubernetes 支持两种方式创建资源：
 
-① 用 kubectl 命令直接创建，比如：
+1. 用 kubectl 命令直接创建，比如：
 
 	kubectl run pm --image=192.168.0.114:5000/oeasy/yihao01-permission-management-6810:1.0.0 --replicas=2
 
 在命令行中通过参数指定资源的属性。
 
-② 通过配置文件和 kubectl apply 创建，首先创建配置文件pm.yaml：
+2. 通过配置文件和 kubectl apply 创建，首先创建配置文件pm.yaml：
 
 	apiVersion: apps/v1beta1
 	kind: Deployment
@@ -183,8 +183,8 @@ Dockerfile文件很简单，只需要8行就可以构建出生产级的java镜�
 基于配置文件的方式 | 基于命令的方式 
 ------------ | -------------
 配置文件描述了 What，即应用最终要达到的状态 | 简单直观快捷，上手快
-配置文件提供了创建资源的模板，能够重复部署  |  --
-可以像管理代码一样管理部署 |  --
+配置文件提供了创建资源的模板，能够重复部署  |   - -
+可以像管理代码一样管理部署 |   - -
 适合正式的、跨环境的、规模化部署 | 适合临时测试或实验
 方式要求熟悉配置文件的语法，有一定难度 | 简单
 
