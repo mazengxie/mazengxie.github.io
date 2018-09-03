@@ -1,5 +1,5 @@
 ---
-title: 安装和使用dashboard
+title: 利用dashboard部署Kubernetes应用
 key: 20180903
 tags: k8s
 ---
@@ -48,6 +48,7 @@ Dashboard 会在 kube-system namespace 中创建自己的 Deployment 和 Service
 	kubectl apply -f kubernetes-dashboard.yaml
 
 ## 2. 使用dashboard
+### 2.1 登录
 dashboard登录地址为https://192.168.0.111:30008
 
 推荐使用火狐浏览器firefox并为该网站添加例外。
@@ -76,6 +77,14 @@ dashboard登录地址为https://192.168.0.111:30008
 	    client-key-data: xxxxxx
 	    token: "在这里加上token"
 
+### 2.2 部署
+部署公网上的镜像
+![](/images/deploy-https-image.jpg)
+
+以es服务为例部署AIoT服务, 复杂的应用一般都是用yaml文件来控制启动
+![](/images/deploy-es.jpg)
+
+点击概况可以看到服务已经启动
 ## 3. 通过rbac控制用户的权限
 
 创建iot的用户的yaml文件：
