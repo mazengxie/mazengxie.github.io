@@ -48,11 +48,11 @@ Dashboard 会在 kube-system namespace 中创建自己的 Deployment 和 Service
 
 ## 2. 使用dashboard
 dashboard登录地址为https://192.168.0.111:30008，推荐使用火狐浏览器firefox并为该网站添加例外。
-
+![](https://github.com/mazengxie/mazengxie.github.io/blob/master/images/2018-09-03/https-cert.jpg)
 如果选择使用谷歌浏览器话，需要关掉chrome证书检查
 
 登录认证有两种方式：
-
+![](https://github.com/mazengxie/mazengxie.github.io/blob/master/images/2018-09-03/login.jpg)
 ① token直接认证
 
 利用如下命令获取token
@@ -137,7 +137,7 @@ dashboard登录地址为https://192.168.0.111:30008，推荐使用火狐浏览�
 	  name: default-reader
 	  apiGroup: rbac.authorization.k8s.io
 
-
+![](https://github.com/mazengxie/mazengxie.github.io/blob/master/images/2018-09-03/all-ns.jpg)
 FAQ：
 
 1. 在dashboard界面登录没有反应？
@@ -166,3 +166,5 @@ FAQ：
 		git clone https://github.com/kubernetes/heapster.git
 		kubectl apply -f heapster/deploy/kube-config/influxdb/
 		kubectl apply -f heapster/deploy/kube-config/rbac/heapster-rbac.yaml
+
+	![](https://github.com/mazengxie/mazengxie.github.io/blob/master/images/2018-09-03/cpu-mem.jpg)
