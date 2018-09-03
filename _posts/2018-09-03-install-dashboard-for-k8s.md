@@ -22,7 +22,7 @@ Dashboard 会在 kube-system namespace 中创建自己的 Deployment 和 Service
 
 > 按官方文档建议的方式安装完dashboard后，使用kubectl proxy代理的方式来访问webUI。使用这个代理的方式访问就会导致登录无响应的问题。
 
-发现登录无响应，所以我又采用kubernetes-dashboard 服务暴露了 NodePort，使用 http://NodeIP:nodePort 地址访问 dashboard。修改yaml,添加NodePort
+发现登录无响应，所以我又采用kubernetes-dashboard 服务暴露了 NodePort，使用 https://NodeIP:nodePort 地址访问 dashboard。修改yaml,添加NodePort
 
 	kind: Service
 	apiVersion: v1
@@ -47,12 +47,15 @@ Dashboard 会在 kube-system namespace 中创建自己的 Deployment 和 Service
 	kubectl apply -f kubernetes-dashboard.yaml
 
 ## 2. 使用dashboard
-dashboard登录地址为https://192.168.0.111:30008，推荐使用火狐浏览器firefox并为该网站添加例外。
-![](https://github.com/mazengxie/mazengxie.github.io/blob/master/images/2018-09-03/https-cert.jpg)
+dashboard登录地址为https://192.168.0.111:30008
+
+推荐使用火狐浏览器firefox并为该网站添加例外。
+![](/images/2018-09-03/https-cert.jpg)
 如果选择使用谷歌浏览器话，需要关掉chrome证书检查
 
 登录认证有两种方式：
 ![](https://github.com/mazengxie/mazengxie.github.io/blob/master/images/2018-09-03/login.jpg)
+
 ① token直接认证
 
 利用如下命令获取token
@@ -138,7 +141,7 @@ dashboard登录地址为https://192.168.0.111:30008，推荐使用火狐浏览�
 	  apiGroup: rbac.authorization.k8s.io
 
 ![](https://github.com/mazengxie/mazengxie.github.io/blob/master/images/2018-09-03/all-ns.jpg)
-FAQ：
+## FAQ：
 
 1. 在dashboard界面登录没有反应？
 
