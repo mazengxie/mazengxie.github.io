@@ -54,7 +54,7 @@ dashboard登录地址为https://192.168.0.111:30008
 如果选择使用谷歌浏览器话，需要关掉chrome证书检查
 
 登录认证有两种方式：
-![](https://github.com/mazengxie/mazengxie.github.io/blob/master/images/2018-09-03/login.jpg)
+![](/images/2018-09-03/login.jpg)
 
 ① token直接认证
 
@@ -140,7 +140,7 @@ dashboard登录地址为https://192.168.0.111:30008
 	  name: default-reader
 	  apiGroup: rbac.authorization.k8s.io
 
-![](https://github.com/mazengxie/mazengxie.github.io/blob/master/images/2018-09-03/all-ns.jpg)
+![](/images/2018-09-03/all-ns.jpg)
 ## FAQ：
 
 1. 在dashboard界面登录没有反应？
@@ -170,4 +170,4 @@ dashboard登录地址为https://192.168.0.111:30008
 		kubectl apply -f heapster/deploy/kube-config/influxdb/
 		kubectl apply -f heapster/deploy/kube-config/rbac/heapster-rbac.yaml
 
-	![](https://github.com/mazengxie/mazengxie.github.io/blob/master/images/2018-09-03/cpu-mem.jpg)
+	![](/images/2018-09-03/cpu-mem.jpg)
