@@ -8,8 +8,9 @@ tags: k8s
 
 为了提供更丰富的用户体验，Kubernetes 还开发了一个基于 Web 的 Dashboard，用户可以用 Kubernetes Dashboard 部署容器化的应用、监控应用的状态、执行故障排查任务以及管理 Kubernetes 各种资源。
 <!--more-->
-在 Kubernetes Dashboard 中可以查看集群中应用的运行状态，也能够创建和修改各种 Kubernetes 资源，比如 Deployment、Job、DaemonSet 等。用户可以 Scale Up/Down Deployment、执行 Rolling Update、重启某个 Pod 或者通过向导部署新的应用。Dashboard 能显示集群中各种资源的状态以及日志信息。
 
+在 Kubernetes Dashboard 中可以查看集群中应用的运行状态，也能够创建和修改各种 Kubernetes 资源，比如 Deployment、Job、DaemonSet 等。用户可以 Scale Up/Down Deployment、执行 Rolling Update、重启某个 Pod 或者通过向导部署新的应用。Dashboard 能显示集群中各种资源的状态以及日志信息。
+![](/images/2018-09-03/source.jpg)
 可以说，Kubernetes Dashboard 提供了 kubectl 的绝大部分功能，大家可以根据情况进行选择。Kubernetes 默认没有部署 Dashboard，可通过如下命令安装：
 
 	kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
@@ -141,7 +142,7 @@ dashboard登录地址为https://192.168.0.111:30008
 	  apiGroup: rbac.authorization.k8s.io
 
 ![](/images/2018-09-03/all-ns.jpg)
-## FAQ：
+## FAQ
 
 1. 在dashboard界面登录没有反应？
 
