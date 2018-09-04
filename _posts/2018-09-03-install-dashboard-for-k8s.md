@@ -40,7 +40,7 @@ Dashboard 会在 kube-system namespace 中创建自己的 Deployment 和 Service
 	    - port: 443
 	      targetPort: 8443
 	      # 添加映射到虚拟机的端口,k8s只支持30000以上的端口
-	      nodePort: 30001
+	      nodePort: 30008
 	  selector:
 	    k8s-app: kubernetes-dashboard
 
@@ -50,7 +50,8 @@ Dashboard 会在 kube-system namespace 中创建自己的 Deployment 和 Service
 
 ## 2. 使用dashboard
 ### 2.1 登录
-dashboard登录地址为https://192.168.0.111:30008
+从上面的yaml文件可以看出登录的端口是30008，所以dashboard登录地址为
+[https://192.168.0.111:30008](https://192.168.0.111:30008)
 
 推荐使用火狐浏览器firefox并为该网站添加例外。
 ![](/images/2018-09-03/https-cert.jpg)
