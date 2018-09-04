@@ -161,11 +161,11 @@ Dashboard 会在 kube-system namespace 中创建自己的 Deployment 和 Service
 
 2. 浏览器不能访问？
      
-	https证书问题，可以使用firefox为登录地址添加例外关掉chrome证书检查，然后登录
+	https证书问题，可以使用firefox浏览器为登录地址添加例外，或者关掉谷歌浏览器chrome证书检查，然后登录。
 
 3. token过期时间太短？
 
-	 Dashboard的Token失效时间可以通过 token-ttl 参数来设置，修改创建Dashboard的yaml文件，并重新创建即可。
+	 Dashboard的Token失效时间默认是900s，即15mins；我们可以通过 token-ttl 参数来设置，修改创建Dashboard的yaml文件，并重新创建即可：
 
 		ports:
 		- containerPort: 8443
