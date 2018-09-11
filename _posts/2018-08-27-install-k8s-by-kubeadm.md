@@ -60,7 +60,13 @@ tags: k8s
 
 ### 2.2 安装kubeadm和相关工具包
 	
-	yum -y install docker kubelet kubeadm kubectl kubernetes-cni
+	yum -y install docker 
+	yum -y install kubectl-1.10.4-0.x86_64
+	yum -y install kubelet-1.10.4-0.x86_64
+	yum -y install kubeadm-1.10.4-0.x86_64
+	yum -y kubernetes-cni-kubernetes-cni.x86_64
+
+> docker在1.13版本以后分为docker-ce和docker-ee，本环境安装的是docker1.13
 
 ### 2.3 启动Docker与kubelet服务
 
