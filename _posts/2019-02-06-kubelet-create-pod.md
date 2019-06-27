@@ -1,5 +1,5 @@
 ---
-title: kubelet 源码分析：pod 新建流程
+title: kubelet创建pod的流程
 key: 20190206
 tags: kubelet
 ---
