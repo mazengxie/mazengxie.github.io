@@ -40,7 +40,6 @@ tags: k8s
 5.配置系统内核参数使流过网桥的流量也进入iptables/netfilter框架中，在/etc/sysctl.conf中添加以下配置：
 
 	net.bridge.bridge-nf-call-iptables = 1
-	net.bridge.bridge-nf-call-iptables = 1
 	net.bridge.bridge-nf-call-ip6tables = 1
 	sysctl -p
 
