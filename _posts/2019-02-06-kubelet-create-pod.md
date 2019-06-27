@@ -1,10 +1,9 @@
 ---
-title: kubelet架构分析
-key: 20190108
+title: kubelet 源码分析：pod 新建流程
+key: 20190206
 tags: kubelet
 ---
 
-# kubelet 源码分析：pod 新建流程
 这篇文章我们分析，当有新的 pod 分配到该节点的时候，kubelet 是怎么处理的。
 <!--more-->
 
